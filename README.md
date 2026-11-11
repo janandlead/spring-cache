@@ -1,6 +1,8 @@
 # Spring Boot Redis Cache Demo
 
-Beginner-friendly Product Management REST API using Java 21, Spring Boot 3.4, PostgreSQL, and Redis 7. It demonstrates cache misses, hits, refreshes, evictions, list invalidation, and TTL expiration.
+Beginner-friendly Product Management REST API using Java 21, Spring Boot 3.4, PostgreSQL, Redis 7, and Lombok. It demonstrates cache misses, hits, refreshes, evictions, list invalidation, and TTL expiration.
+
+Lombok is used only to reduce repetitive boilerplate: `@Getter` and `@Setter` on the entity, `@NoArgsConstructor` and `@AllArgsConstructor` for entity construction, `@RequiredArgsConstructor` for constructor-based dependency injection, and `@Slf4j` for logging. Lombok generates these methods during compilation; the application still uses ordinary Spring constructor injection at runtime.
 
 ## Setup
 

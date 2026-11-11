@@ -4,6 +4,7 @@ import com.durgasoft.redis.dto.ProductRequest;
 import com.durgasoft.redis.dto.ProductResponse;
 import com.durgasoft.redis.service.ProductService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +13,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
+@RequiredArgsConstructor
 public class ProductController {
 	private final ProductService productService;
-
-	/** Injects the service used by all product endpoints. */
-	public ProductController(ProductService productService) {
-		this.productService = productService;
-	}
 
 	@PostMapping
 	/** Creates a product and returns HTTP 201 with a Location header for the new resource. */
