@@ -17,6 +17,9 @@ Create a Redis 7 container:
 ```bash
 docker run -d --name redis-cache -p 6379:6379 redis:7
 ```
+First time it not found in local so it pull form docker hub
+
+<img width="940" height="529" alt="image" src="https://github.com/user-attachments/assets/a38be094-6650-467e-8c03-83ec1464de8c" />
 
 If the container already exists but is stopped:
 
@@ -24,11 +27,16 @@ If the container already exists but is stopped:
 docker start redis-cache
 ```
 
+<img width="263" height="42" alt="image" src="https://github.com/user-attachments/assets/03121162-f72d-41bf-8f9e-0f8f230b7df0" />
+
+
 Check the container:
 
 ```bash
 docker ps
 ```
+<img width="939" height="62" alt="image" src="https://github.com/user-attachments/assets/07c659bf-7ce5-4efe-aee2-50a33c0c19f8" />
+
 
 Expected port mapping:
 
