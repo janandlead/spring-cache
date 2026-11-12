@@ -29,6 +29,7 @@ public class ProductService {
 	@Transactional
 	@CacheEvict(value = "productList", allEntries = true)
 	public ProductResponse create(ProductRequest request) {
+		log.info("DB CALL: save new product (INSERT may execute at transaction flush)");
 		Product saved = productRepository.save(new Product(request.productName(), request.price()));
 		return toResponse(saved);
 	}
@@ -45,14 +46,14 @@ public class ProductService {
 	@Transactional(readOnly = true)
 	@Cacheable(value = "products", key = "#id")
 	public ProductResponse getById(Long id) {
-		log.info("CACHE MISS: querying PostgreSQL for product {}", id);
+		log.info("CACHE MISS | DB CALL: findById({})", id);
 		return productRepository.findById(id).map(this::toResponse).orElseThrow(() -> new ProductNotFoundException(id));
 	}
 
 	@Transactional(readOnly = true)
 	@Cacheable(value = "productList", key = "'all'")
 	public List<ProductResponse> getAll() {
-		log.info("CACHE MISS: querying PostgreSQL for all products");
+		log.info("CACHE MISS | DB CALL: findAll()");
 		return productRepository.findAll().stream().map(this::toResponse).toList();
 	}
 
@@ -63,9 +64,11 @@ public class ProductService {
 	@Transactional
 	@Caching(put = @CachePut(value = "products", key = "#id"), evict = @CacheEvict(value = "productList", allEntries = true))
 	public ProductResponse update(Long id, ProductRequest request) {
+		log.info("DB CALL: findById({}) for update", id);
 		Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
 		product.setProductName(request.productName());
 		product.setPrice(request.price());
+		log.info("DB CALL: save product {} (UPDATE may execute at transaction flush)", id);
 		return toResponse(productRepository.save(product));
 	}
 
@@ -77,8 +80,10 @@ public class ProductService {
 	@Caching(evict = { @CacheEvict(value = "products", key = "#id"),
 			@CacheEvict(value = "productList", allEntries = true) })
 	public void delete(Long id) {
+		log.info("DB CALL: existsById({}) before delete", id);
 		if (!productRepository.existsById(id))
 			throw new ProductNotFoundException(id);
+		log.info("DB CALL: deleteById({}) (DELETE may execute at transaction flush)", id);
 		productRepository.deleteById(id);
 	}
 
