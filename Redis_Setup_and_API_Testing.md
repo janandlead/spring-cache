@@ -38,6 +38,10 @@ docker ps
 <img width="939" height="62" alt="image" src="https://github.com/user-attachments/assets/07c659bf-7ce5-4efe-aee2-50a33c0c19f8" />
 
 
+<img width="941" height="304" alt="image" src="https://github.com/user-attachments/assets/f071658f-1fc5-45c8-b1f5-185a3e61e643" />
+
+
+
 Expected port mapping:
 
 ```text
